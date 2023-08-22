@@ -1,0 +1,26 @@
+{
+  "name": "seniorproject",
+  "version": "1.0.0",
+  "description": "senior phase project",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "author": "seif",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "json": "^11.0.0",
+    "mysql2": "^3.6.0",
+    "node": "^20.5.0",
+    "nodemon": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "run": "^1.4.0",
+    "test": "^3.3.0"
+  }
+}
