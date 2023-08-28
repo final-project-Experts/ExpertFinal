@@ -32,6 +32,23 @@ const getAllC = function (req, res) {
     })
   };
 
+  // connexion candidat 
+
+  const addConnexion=(req,res)=>{
+    const query= "insert into candidat set ?"
+    console.log("body: ",req.body);
+    db.query(query,req.body,(err,result)=>{
+      err ? res.status(500).send(err) : res.status(200).send(result)
+  })
+  };
+
+  const modifyConnexion=(req,res)=>{
+    const query=`update candidat set ? where candidatId=${req.params.id} `
+    db.query(query,req.body,(err,result)=>{
+      err ? res.status(500).send(err) : res.status(200).send(result)
+    })
+  };
 
 
-  module.exports = {getAllC,addC,removeC,modifyC};
+
+  module.exports = {getAllC,addC,removeC,modifyC,addConnexion,modifyConnexion};
