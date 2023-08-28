@@ -22,9 +22,10 @@ CREATE TABLE IF NOT EXISTS `jhdb`.`candidat` (
   `candidatNomPrénom` VARCHAR(255) NOT NULL,
   `candidatQualifications` VARCHAR(255) NOT NULL,
   `candidatMail` VARCHAR(255) NOT NULL,
-  `Entreprise_EntrepriseId` INT NOT NULL,
   `candidatCV` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`candidatId`, `Entreprise_EntrepriseId`))
+  `candidatPassword` VARCHAR(255) NOT NULL,
+  `candidatCIN` INT NOT NULL,
+  PRIMARY KEY (`candidatId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -34,12 +35,14 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `jhdb`.`entreprise` (
   `eId` INT NOT NULL AUTO_INCREMENT,
-  `eNom` VARCHAR(255) NOT NULL,
-  `eDescription` VARCHAR(255) NOT NULL,
-  `eContact` VARCHAR(255) NOT NULL,
+  `eNom` VARCHAR(255) NULL,
+  `eDescription` VARCHAR(255) NULL,
+  `eContact` VARCHAR(255) NULL,
+  `eMail` VARCHAR(255) NOT NULL,
+  `ePassword` VARCHAR(255) NOT NULL,
+  `eRNE` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`eId`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -52,39 +55,7 @@ CREATE TABLE IF NOT EXISTS `jhdb`.`offre d'emploi` (
   `offreRequis` VARCHAR(255) NOT NULL,
   `offreResponsabilities` VARCHAR(255) NOT NULL,
   `offreAboutUs` VARCHAR(255) NOT NULL,
-  `Entreprise_EntrepriseId` INT NOT NULL,
-  `candidat_candidatId` INT NOT NULL,
-  `candidat_Entreprise_EntrepriseId` INT NOT NULL,
-  PRIMARY KEY (`offreId`, `Entreprise_EntrepriseId`, `candidat_candidatId`, `candidat_Entreprise_EntrepriseId`),
-  INDEX `fk_offre d'emploi_Entreprise1_idx` (`Entreprise_EntrepriseId` ASC) VISIBLE,
-  INDEX `fk_offre d'emploi_candidat1_idx` (`candidat_candidatId` ASC, `candidat_Entreprise_EntrepriseId` ASC) VISIBLE,
-  CONSTRAINT `fk_offre d'emploi_candidat1`
-    FOREIGN KEY (`candidat_candidatId` , `candidat_Entreprise_EntrepriseId`)
-    REFERENCES `jhdb`.`candidat` (`candidatId` , `Entreprise_EntrepriseId`),
-  CONSTRAINT `fk_offre d'emploi_Entreprise1`
-    FOREIGN KEY (`Entreprise_EntrepriseId`)
-    REFERENCES `jhdb`.`entreprise` (`eId`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `jhdb`.`candidat_has_offre d'emploi`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jhdb`.`candidat_has_offre d'emploi` (
-  `candidat_candidatId` INT NOT NULL,
-  `candidat_Entreprise_EntrepriseId` INT NOT NULL,
-  `offre d'emploi_offreId` INT NOT NULL,
-  `offre d'emploi_Entreprise_EntrepriseId` INT NOT NULL,
-  PRIMARY KEY (`candidat_candidatId`, `candidat_Entreprise_EntrepriseId`, `offre d'emploi_offreId`, `offre d'emploi_Entreprise_EntrepriseId`),
-  INDEX `fk_candidat_has_offre d'emploi_offre d'emploi1_idx` (`offre d'emploi_offreId` ASC, `offre d'emploi_Entreprise_EntrepriseId` ASC) VISIBLE,
-  INDEX `fk_candidat_has_offre d'emploi_candidat1_idx` (`candidat_candidatId` ASC, `candidat_Entreprise_EntrepriseId` ASC) VISIBLE,
-  CONSTRAINT `fk_candidat_has_offre d'emploi_candidat1`
-    FOREIGN KEY (`candidat_candidatId` , `candidat_Entreprise_EntrepriseId`)
-    REFERENCES `jhdb`.`candidat` (`candidatId` , `Entreprise_EntrepriseId`),
-  CONSTRAINT `fk_candidat_has_offre d'emploi_offre d'emploi1`
-    FOREIGN KEY (`offre d'emploi_offreId` , `offre d'emploi_Entreprise_EntrepriseId`)
-    REFERENCES `jhdb`.`offre d'emploi` (`offreId` , `Entreprise_EntrepriseId`))
+  PRIMARY KEY (`offreId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -93,41 +64,67 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `jhdb`.`entreprise_has_candidat`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `jhdb`.`entreprise_has_candidat` (
-  `Entreprise_EntrepriseId` INT NOT NULL,
+  `entreprise_eId` INT NOT NULL,
   `candidat_candidatId` INT NOT NULL,
-  `candidat_Entreprise_EntrepriseId` INT NOT NULL,
-  PRIMARY KEY (`Entreprise_EntrepriseId`, `candidat_candidatId`, `candidat_Entreprise_EntrepriseId`),
-  INDEX `fk_Entreprise_has_candidat_candidat1_idx` (`candidat_candidatId` ASC, `candidat_Entreprise_EntrepriseId` ASC) VISIBLE,
-  INDEX `fk_Entreprise_has_candidat_Entreprise1_idx` (`Entreprise_EntrepriseId` ASC) VISIBLE,
-  CONSTRAINT `fk_Entreprise_has_candidat_candidat1`
-    FOREIGN KEY (`candidat_candidatId` , `candidat_Entreprise_EntrepriseId`)
-    REFERENCES `jhdb`.`candidat` (`candidatId` , `Entreprise_EntrepriseId`),
-  CONSTRAINT `fk_Entreprise_has_candidat_Entreprise1`
-    FOREIGN KEY (`Entreprise_EntrepriseId`)
-    REFERENCES `jhdb`.`entreprise` (`eId`))
+  PRIMARY KEY (`entreprise_eId`, `candidat_candidatId`),
+  INDEX `fk_entreprise_has_candidat_candidat1_idx` (`candidat_candidatId` ASC) VISIBLE,
+  INDEX `fk_entreprise_has_candidat_entreprise1_idx` (`entreprise_eId` ASC) VISIBLE,
+  CONSTRAINT `fk_entreprise_has_candidat_entreprise1`
+    FOREIGN KEY (`entreprise_eId`)
+    REFERENCES `jhdb`.`entreprise` (`eId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entreprise_has_candidat_candidat1`
+    FOREIGN KEY (`candidat_candidatId`)
+    REFERENCES `jhdb`.`candidat` (`candidatId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `jhdb`.`logins`
+-- Table `jhdb`.`offre d'emploi_has_candidat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jhdb`.`logins` (
-  `loginsId` INT NOT NULL AUTO_INCREMENT,
-  `loginsMail` VARCHAR(255) NOT NULL,
-  `loginsPassword` VARCHAR(45) NOT NULL,
-  `Entreprise_EntrepriseId` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `jhdb`.`offre d'emploi_has_candidat` (
+  `offre d'emploi_offreId` INT NOT NULL,
   `candidat_candidatId` INT NOT NULL,
-  `candidat_Entreprise_EntrepriseId` INT NOT NULL,
-  PRIMARY KEY (`loginsId`, `Entreprise_EntrepriseId`, `candidat_candidatId`, `candidat_Entreprise_EntrepriseId`),
-  INDEX `fk_logins_Entreprise1_idx` (`Entreprise_EntrepriseId` ASC) VISIBLE,
-  INDEX `fk_logins_candidat1_idx` (`candidat_candidatId` ASC, `candidat_Entreprise_EntrepriseId` ASC) VISIBLE,
-  CONSTRAINT `fk_logins_candidat1`
-    FOREIGN KEY (`candidat_candidatId` , `candidat_Entreprise_EntrepriseId`)
-    REFERENCES `jhdb`.`candidat` (`candidatId` , `Entreprise_EntrepriseId`),
-  CONSTRAINT `fk_logins_Entreprise1`
-    FOREIGN KEY (`Entreprise_EntrepriseId`)
-    REFERENCES `jhdb`.`entreprise` (`eId`))
+  PRIMARY KEY (`offre d'emploi_offreId`, `candidat_candidatId`),
+  INDEX `fk_offre d'emploi_has_candidat_candidat1_idx` (`candidat_candidatId` ASC) VISIBLE,
+  INDEX `fk_offre d'emploi_has_candidat_offre d'emploi1_idx` (`offre d'emploi_offreId` ASC) VISIBLE,
+  CONSTRAINT `fk_offre d'emploi_has_candidat_offre d'emploi1`
+    FOREIGN KEY (`offre d'emploi_offreId`)
+    REFERENCES `jhdb`.`offre d'emploi` (`offreId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_offre d'emploi_has_candidat_candidat1`
+    FOREIGN KEY (`candidat_candidatId`)
+    REFERENCES `jhdb`.`candidat` (`candidatId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `jhdb`.`entreprise_has_offre d'emploi`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `jhdb`.`entreprise_has_offre d'emploi` (
+  `entreprise_eId` INT NOT NULL,
+  `offre d'emploi_offreId` INT NOT NULL,
+  PRIMARY KEY (`entreprise_eId`, `offre d'emploi_offreId`),
+  INDEX `fk_entreprise_has_offre d'emploi_offre d'emploi1_idx` (`offre d'emploi_offreId` ASC) VISIBLE,
+  INDEX `fk_entreprise_has_offre d'emploi_entreprise1_idx` (`entreprise_eId` ASC) VISIBLE,
+  CONSTRAINT `fk_entreprise_has_offre d'emploi_entreprise1`
+    FOREIGN KEY (`entreprise_eId`)
+    REFERENCES `jhdb`.`entreprise` (`eId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_entreprise_has_offre d'emploi_offre d'emploi1`
+    FOREIGN KEY (`offre d'emploi_offreId`)
+    REFERENCES `jhdb`.`offre d'emploi` (`offreId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 

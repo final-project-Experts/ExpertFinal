@@ -4,23 +4,27 @@
   "description": "senior phase project",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "nodemon index.js",
+    "react": "webpack --mode development --watch"
   },
   "author": "seif",
   "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^9.0.1",
+    "nodemon": "^2.0.20",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
   "dependencies": {
-    "axios": "^1.4.0",
+    "axios": "^0.21.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
+    "express": "^4.15.0",
     "json": "^11.0.0",
-    "mysql2": "^3.6.0",
-    "node": "^20.5.0",
-    "nodemon": "^3.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.15.0",
-    "run": "^1.4.0",
-    "test": "^3.3.0"
+    "mysql2": "^3.0.1",
+    "react": "^17.0.2",
+    "react-dom": "17.0.2"
   }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { ReactDOM } from "react";
-import { BrowserRouter, Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
 
 const App = () =>{
@@ -10,11 +10,26 @@ const App = () =>{
             <div>
                 <h2 id="headerWithPhotoJobHunters"> JOB HUNTERS </h2>
             </div><br></br>
-            <div>
+            <div>  
                <h3>Espace Entreprise</h3> 
-               <p> Iscription </p>
-               <p> Connexion </p>
+               <Router>
+               <div>
+               <nav>
+
+               <Link to="/inscription"> Iscription </Link>
+               <Link to="/connexion">   Connexion  </Link>
+               
+               <Route path="/inscription" Component={Inscription}/>
+               <Route path="/connexion" Component={Connection}/>
+               <Route path="/PageEntreprise" component={PageEntreprise} />
+
+               </nav>
+               </div>
+               </Router>
+            
             </div>
         </div>
     )
 }
+
+ReactDOM.render(<App/>, document.getElementById("app"))

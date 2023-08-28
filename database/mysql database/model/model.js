@@ -11,9 +11,10 @@ module.exports = {
         })
     },
 
-    addCompany : function (req, res) {
-        const sql = "INSERT INTO entreprise SET ? "
-        connection.query(sql, req.body,function(err, result) {
+    addCompanyLogin : function (req, res, id) {
+        const sql = "INSERT INTO entreprise SET ?"
+        id = req.params.id
+        connection.query(sql, req.body, function(err, result) {
             if (err) res.status(500).send(err)
             else res.status(200).send(result)
         })
@@ -33,5 +34,14 @@ module.exports = {
             if (err) res.status(500).send(err) 
             else res.status(200).send(result)
         })
+     },
+
+     checkForLogin : function (req, res) {
+        const sql = "SELECT * FROM entreprise WHERE eMail = ? AND ePassword = ?"
+        connection.query(sql, [req.body.eMail, req.body.ePassword] ,function (err, result) {
+            if (err) res.status(500).send(err)
+            else res.status(200).send(result)
+        })
      }
+
 }
