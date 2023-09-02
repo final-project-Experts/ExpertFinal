@@ -8,11 +8,13 @@ const Inscription = () =>{
         const qualification = document.getElementById("iQ").value
         const mail = document.getElementById("iEmail").value
         const cv = document.getElementById("iCv").value
+        const password = document.getElementById("iPassWord").value
         axios.post("http://localhost:3000/api/items/addConnexion",
         {   candidatNomPrenom: nomPrenom,
             candidatQualification: qualification,
             candidatMail: mail,
-            candidatCV : cv
+            candidatCV : cv,
+            candidatPassword : password
         })
           .then(response => {
             console.log(response.data);
@@ -34,6 +36,8 @@ const Inscription = () =>{
                 <input type="text" placeholder="Email" id="iEmail"/>
                 <label> CV </label>
                 <input type="text" placeholder='cv' id="iCv"/>
+                <label> PassWord </label>
+                <input type="text" placeholder='Password' id="iPassWord"/>
                 <button type="submit"> Terminez </button>
             </form>
         </div>
