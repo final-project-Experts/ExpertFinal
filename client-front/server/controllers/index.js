@@ -12,7 +12,6 @@ const getAllC = function (req, res) {
 
   const addC=(req,res)=>{
     const query= "insert into candidat set ?"
-    console.log("body: ",req.body);
     db.query(query,req.body,(err,result)=>{
       err ? res.status(500).send(err) : res.status(200).send(result)
   })
@@ -32,11 +31,21 @@ const getAllC = function (req, res) {
     })
   };
 
+  const login = (req, res) => {
+    const query = "SELECT * FROM candidat WHERE UPPER (cMail) = ? AND cPassword = ?"
+    db.query(query, [req.body.cMail.toUpperCase(), req.body.cPassword] ,function (err, result) { 
+      if (err) res.status(500).send(err)
+        else if (!result||result.length==0){
+      res.status(404).send('user not found')
+        }
+        else res.status(200).send(result)
+    })
+ }
+
   // connexion candidat 
 
   const addConnexion=(req,res)=>{
     const query= "insert into candidat set ?"
-    console.log("body: ",req.body);
     db.query(query,req.body,(err,result)=>{
       err ? res.status(500).send(err) : res.status(200).send(result)
   })
@@ -48,7 +57,6 @@ const getAllC = function (req, res) {
       err ? res.status(500).send(err) : res.status(200).send(result)
     })
   };
+  
 
-
-
-  module.exports = {getAllC,addC,removeC,modifyC,addConnexion,modifyConnexion};
+  module.exports = {getAllC,addC,removeC,modifyC,addConnexion,modifyConnexion,login};

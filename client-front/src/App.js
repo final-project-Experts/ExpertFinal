@@ -16,8 +16,8 @@ function Header() {
       <div>
         <h1> Welcome </h1>
         <nav>
-          <Link to="/login">Login</Link>{" || "}
-          <Link to="/inscription">Inscription</Link>
+          <Link to="/login"> Login </Link>{" || "}
+          <Link to="/inscription"> Inscription </Link>
           <Link to="/profil"></Link>
         </nav>
       </div>
