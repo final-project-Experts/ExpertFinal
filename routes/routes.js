@@ -1,12 +1,10 @@
-const express = require("express")
-const router = express.Router()
+const router = require('express').Router();
+const { getAllCompanies, addCompanyLogin, deleteCompany, updateCompany, checkForLogin } = require("../server/controller/index")
 
-const {getAllCompanies, addCompanyLogin,  deleteCompany, updateCompany, checkForLogin} = require("../database/mysql database/model/model")
-
-router.get("/get", getAllCompanies)
-router.get("/login/", checkForLogin)
+router.get("/", getAllCompanies);
+router.get("/login", checkForLogin);
 router.post("/post", addCompanyLogin)
-router.delete("/:id", deleteCompany)
 router.put("/:id", updateCompany)
+router.delete("/:id", deleteCompany)
 
 module.exports = router;

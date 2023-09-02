@@ -1,16 +1,22 @@
-const express = require('express')
-const cors = require("cors")
-const json = require("json")
-const app = express()
+const express = require("express");
+const itemRoutes = require('./routes/routes')
+const cors = require('cors');
 
-const route = require("./routes/routes.js")
+const db = require('./database-mysql/index');
 
-app.use(cors())
+const app = express();
+const PORT = process.env.PORT || 3001
+
+app.use(cors({
+  origin: '*'
+}));
+
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/../client/dist"));
 
-app.use("/company", route)
+app.use("/api/", itemRoutes);
 
-app.listen(3000, function() {
-    console.log("connected");
-})
+app.listen(PORT, function () {
+  console.log(`listening on port ${PORT}`);
+});
