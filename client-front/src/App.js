@@ -14,9 +14,9 @@ import './App.css';
 function Header() {
     return (
       <div>
-        <h1> Welcome </h1>
+        <h1> Welcome to Job Hunters </h1>
         <nav>
-          <Link to="/login"> Login </Link>{" || "}
+          <Link to="/login"> Login </Link> {" || "}
           <Link to="/inscription"> Inscription </Link>
           <Link to="/profil"></Link>
         </nav>

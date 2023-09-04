@@ -26,7 +26,7 @@ const Login = () =>{
     }
     return (
         <div>
-            <h2> inscrivez vous, creez votre compte </h2>
+            <h2> Connectez vous </h2>
             <form onSubmit={e => {authenticate(e)}}>
                 <label> E-mail </label> 
                 <input type="text" placeholder="Email" id="iEmail" onChange={e=> setEmail(e.target.value)}/>
