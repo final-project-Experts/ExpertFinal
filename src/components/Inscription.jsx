@@ -1,5 +1,4 @@
 import axios from "axios";
-import { response } from "express";
 import React, { useState } from "react";
 import { Link, Navigate, Route, Router, useNavigate, useLocation } from "react-router-dom";
 import PageEntreprise from "../components/PageEntreprise"

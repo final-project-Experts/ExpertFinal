@@ -1,37 +1,42 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import  ReactDOM from "react-dom";
-import {Router, Route, Link, Routes, Navigate, useNavigate, BrowserRouter } from "react-router-dom";
-import axios from "axios";
-import Inscription from "./components/Inscription.jsx";
-
-
-
-const App = () =>{
-    return (
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link
+  } from "react-router-dom";
+  import Inscription from "./components/Inscription"
+  import Connection from "./components/Connection";
+  import PageEntreprise from "./components/PageEntreprise";
+  import './App.css';
+  
+  
+  function Header() {
+      return (
         <div>
-            <div>
-                <h2 id="headerWithPhotoJobHunters"> JOB HUNTERS </h2>
-            </div><br></br>
-            <div>  
-               <h3>Espace Entreprise</h3> 
-               <Router>
-               <nav>
-
-               <Link to="/Inscription"> Iscription </Link>
-               <Link to="/Connexion">   Connexion  </Link>
-               
-               </nav>
-               <Routes>
-               <Route path="/Inscription"  element ={<Inscription />}  />
-               <Route path="/Connection"  component ={<Connection />}  />
-               <Route path="/PageEntreprise"  element    />
-               </Routes>
-               </Router>
-            
-            </div>
+          <h1> Welcome to Job Hunters </h1>
+          <nav>
+            <Link to="/Connection"> Connection </Link> {" || "}
+            <Link to="/Inscription"> Inscription </Link>
+            <Link to="/PageEntreprise"></Link>
+          </nav>
         </div>
-    )
-}
-
-export default App;
+      );
+    }
+    function App() {
+        return (
+          <div className="App">
+            <Router>
+              <Header></Header>
+              <div className="container">
+              <Routes>
+                  <Route path="/Connection" element={<Connection />} />
+                  <Route path="/Inscription" element={<Inscription />} />
+                  <Route path="/PageEntreprise" element={<PageEntreprise />} />
+              </Routes>
+              </div>
+            </Router>
+          </div>
+      )
+      }
+      
+      export default App;
