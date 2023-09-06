@@ -1,19 +1,20 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, Navigate, Route, Router, useNavigate, useLocation } from "react-router-dom";
-import PageEntreprise from "../components/PageEntreprise"
-
+import { useNavigate } from "react-router-dom";
 
 const Inscription = () =>{
-    const navigate = useNavigate()
-    const insc = () =>{
-        const nom = document.getElementById("iNom").value
-        const description = document.getElementById("iDescription").value
-        const contact = document.getElementById("iContact").value
-        const mail = document.getElementById("iEmail").value
-        const pass = document.getElementById("iPw").value
-        const RNE = document.getElementById("RNE").value
-        axios.post("http://localhost:3000/company/post", 
+    
+    const navigate = useNavigate();
+    const [nom, setNom] =useState("")
+    const [description, setDescription] =useState("")
+    const [contact, setContact] =useState("")
+    const [mail, setMail] =useState("")
+    const [pass, setPass] =useState("")
+    const [RNE, setRNE] =useState("")
+
+    const insc = (e) =>{
+        e.preventDefault()
+        axios.post("http://localhost:3001/api/post", 
         {   eNom: nom,
             eDescription: description,
             eContact: contact,
@@ -22,8 +23,8 @@ const Inscription = () =>{
             eRNE: RNE
         })
           .then(response => {
-            console.log(response.data);
             navigate("/PageEntreprise")
+            
         })
         .catch(error => {
             console.error(error);
@@ -33,21 +34,21 @@ const Inscription = () =>{
     return (
         <div>
             <h2>inscrivez vous, creez un compte pour votre entreprise</h2>
-            <form onSubmit={insc} >
+            <form onSubmit={(e) =>{insc(e)}} >
                 <label> Nom </label> 
-                <input type="text" placeholder="Nom" id="iNom"/>
+                <input type="text" onChange={(e) =>setNom(e.target.value)} placeholder="Nom" id="iNom"/>
                 <label> Description </label> 
-                <input type="text" placeholder="Description" id="iDescription"/>
+                <input type="text" onChange={(e) =>setDescription(e.target.value)} placeholder="Description" id="iDescription"/>
                 <label> Contact </label> 
-                <input type="text" placeholder="Contact" id="iContact"/><br></br>
+                <input type="text" onChange={(e) =>setContact(e.target.value)} placeholder="Contact" id="iContact"/><br></br>
                 
                 <p> Maintenant pour vous faciliter la vie, vous pouvez mettre vos logins ici</p>
                 <label> E-mail </label> 
-                <input type="text" placeholder="Email" id="iEmail"/>
+                <input type="text" onChange={(e) =>setMail(e.target.value)} placeholder="Email" id="iEmail"/>
                 <label> Mot de pass </label>
-                <input type="text" placeholder='Mot de pass' id="iPw"/>
+                <input type="password" onChange={(e) =>setPass(e.target.value)} placeholder='Mot de pass' id="iPw"/>
                 <label> RNE </label>
-                <input type="text" placeholder='RNE' id="RNE"/>
+                <input type="text" onChange={(e) =>setRNE(e.target.value)} placeholder='RNE' id="RNE"/>
                 <button type="submit"> Terminez </button>
             </form>
         </div>

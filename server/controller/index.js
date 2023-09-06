@@ -39,8 +39,9 @@ module.exports = {
      checkForLogin : function (req, res) {
         const sql = "SELECT * FROM entreprise WHERE eMail = ? AND ePassword = ?"
         connection.query(sql, [req.body.eMail, req.body.ePassword] ,function (err, result) {
-            if (err) res.status(500).send(err)
-            else res.status(200).send(result)
+            if (result.length === 0) res.status(401).send("unautherized")
+            else if (err) res.status(500).send(err) 
+        else  res.status(200).send(result)
         })
      }
 
