@@ -31,7 +31,7 @@ const Login = () =>{
                 <label> E-mail </label> 
                 <input type="text" placeholder="Email" id="iEmail" onChange={e=> setEmail(e.target.value)}/>
                 <label> Mot de pass </label>
-                <input type="text" placeholder='Mot de pass' id="iPw" onChange={e=> setPassword(e.target.value)}/>
+                <input type="password" placeholder='Mot de pass' id="iPw" onChange={e=> setPassword(e.target.value)}/>
                 <button type="submit"> Terminez </button><br></br>
                 { error && <label style={{"color":"red"}} >bad credentials</label>}
             </form>

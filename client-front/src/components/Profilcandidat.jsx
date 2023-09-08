@@ -16,11 +16,11 @@ const Profil = () =>{
             const qualification = document.getElementById("iQ").value
             const mail = document.getElementById("iEmail").value
             const cv = document.getElementById("iCv").value
-            axios.get("http://localhost:3000/api/items/getAllC",
-            {   candidatNomPrenom: nomPrenom,
-                candidatQualification: qualification,
-                candidatMail: mail,
-                candidatCV : cv
+            axios.get("http://localhost:3001/api/items/getAllC",
+            {   cNomPrenom: nomPrenom,
+                cQualifications: qualification,
+                cMail: mail,
+                cCV : cv
             })
               .then(response => {
             })
