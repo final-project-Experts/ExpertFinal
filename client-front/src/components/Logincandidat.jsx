@@ -28,9 +28,9 @@ const Login = () =>{
         <div>
             <h2> Connectez vous </h2>
             <form onSubmit={e => {authenticate(e)}}>
-                <label> E-mail </label> 
-                <input type="text" placeholder="Email" id="iEmail" onChange={e=> setEmail(e.target.value)}/>
-                <label> Mot de pass </label>
+                <label id="cemail"> E-mail </label> 
+                <input type="text" placeholder="Email" id="cEmail" onChange={e=> setEmail(e.target.value)}/>
+                <label id="motdepass"> Mot de pass </label>
                 <input type="password" placeholder='Mot de pass' id="iPw" onChange={e=> setPassword(e.target.value)}/>
                 <button type="submit"> Terminez </button><br></br>
                 { error && <label style={{"color":"red"}} >bad credentials</label>}

@@ -30,15 +30,15 @@ const Inscription = () =>{
         <div>
             <h2> inscrivez vous , creez votre compte </h2>
             <form onSubmit={e => {insc(e)}}>
-                <label> Nom/Prénom </label> 
+                <label id="name"> Name / Last Name </label> 
                 <input type="text" placeholder="nomPrenom" id="iNomPrenom" onChange={e=> setNomPrenom(e.target.value)}/>
-                <label> Qualification </label>
+                <label id="qualification"> Qualification </label>
                 <input type="text" placeholder='qualification' id="iQ"  onChange={e=> setQualification(e.target.value)}/>
-                <label> E-mail </label> 
+                <label id="email"> E-mail </label> 
                 <input type="text" placeholder="Email" id="iEmail" onChange={e=> setMail(e.target.value)}/>
-                <label> CV </label>
+                <label id="cv"> CV </label>
                 <input type="text" placeholder='cv' id="iCv" onChange={e=> setCV(e.target.value)}/>
-                <label> Password </label>
+                <label id ='password'> Password </label>
                 <input type="password" placeholder='Password' id="iPassWord" onChange={e=> setPassword(e.target.value)}/>
                 <button type="submit"> Terminez </button>
             </form>
