@@ -6,17 +6,13 @@ import $ from 'jquery'
 import List from './components/List.jsx'
 import acceuil from './components/acceuil.jsx'
 import entreprise from './components/entreprise.jsx'
-import support from './components/support.jsx'
+import Support from './components/support.jsx'
 import candidat from './components/candidat.jsx'
-import offreEmploi from './components/offreEmploi.jsx'
+import OffreEmploi from './components/OffreEmploi.jsx'
 
 const App = () => {
   const [items, setItems] = useState([])
-  const [name, setName] = useState("")
-  const [client, setclient] = useState("")
-  const [resultat, setresultat] = useState(0)
-  const [quantity, setquantity] = useState(0)
-  const [image, setimage] = useState("")
+  
   const [reload, setreload] = useState(false)
   useEffect(() => {
     //get all data 
@@ -61,12 +57,12 @@ const App = () => {
           <Route path="/acceuil" element={<acceuil />} />
           <Route path="/candidat" element={<candidat />} />
           <Route path="/entreprise" element={<entreprise />} />
-          <Route path="/offreEmploi" element={<entreprise />} />
-          <Route path="/support" element={<support />} />
+          <Route path="/offreEmploi" element={<OffreEmploi />} />
+          <Route path="/support" element={<Support />} />
         </Routes>
       </Router>
       </div>
-      <div >
+      <div className="contenu">
       <img src="./OIP.jpg"  class="full-width-image1"></img>
       </div>
     </div>
